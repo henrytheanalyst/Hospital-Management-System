@@ -90,6 +90,7 @@ button[type="submit"]{
   color: #ffffff;
   font-size: 22px;
   font-weight: bold;
+  cursor: pointer;
 }
 select{
   padding: 10px;
@@ -120,4 +121,38 @@ select{
   background: none;
   border: none;
   cursor: pointer;
+}
+.msgs{
+  padding: 16px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+   color: white;
+   font-weight: bold;
+ 
+}
+.msgs.success{
+  background-color:  #088F8F;
+   box-shadow:0px 1px 51px 16px slateblue;
+
+}
+.msgs.error{
+  background-color: #3C0008;
+}
+@media(max-width:1237px){
+  .container{
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .text-container{
+    height: auto;
+  }
+  .text-section{
+    width: 100%;
+    padding: 15px;
+  }
+  .image-section{
+    width: 100%;
+    min-height: 60vh;
+  }
 }
