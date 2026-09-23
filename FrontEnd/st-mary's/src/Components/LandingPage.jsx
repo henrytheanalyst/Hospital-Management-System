@@ -54,6 +54,10 @@ function LandingPage(){
                     password:password
                 }
             );
+            localStorage.setItem('token',response.data.token);
+            console.log(response);
+            
+            
             setMsg(response.data.message);
             setMsgType("success")
         } catch (error) {
