@@ -24,7 +24,6 @@ export const register=async (req,res) => {
         }
         res.status(500).json({
             message:"Error encountered in registration",
-            error
         })
         
     }
@@ -68,7 +67,7 @@ export const login=async (req,res) => {
 
     } catch (error) {
         console.error(error);
-        res.status(401).json({
+        res.status(500).json({
             message:"Error encountered in login"
         })
         

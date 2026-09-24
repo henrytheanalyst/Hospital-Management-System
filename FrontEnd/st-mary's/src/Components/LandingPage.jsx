@@ -38,8 +38,8 @@ function LandingPage(){
             setPassword("");
             setMode("signin");  
             } catch (error) {
-                console.log(error.response.data.message);
-                setMsg(error.response.data.message)
+                console.log(error.response.data.message );
+                setMsg(error.response?.data?.message || "Oops we are experiencing some difficulties")
                 setMsgType("error")
                
                 
@@ -61,7 +61,7 @@ function LandingPage(){
             setMsg(response.data.message);
             setMsgType("success")
         } catch (error) {
-            setMsg(error.response.data.message);
+            setMsg(error.response ?.data ?.message || "Oops we are experiencing some difficulties");
             setMsgType("error")
             console.log(error);
             
@@ -112,7 +112,7 @@ function LandingPage(){
                                 <input type="text" required placeholder="CIS-1-7132-3/2020" value={id} onChange={(e)=>setId(e.target.value)}/>
                                 <label >DEPARTMENT</label>
                                 <select value={department} onChange={(e)=>setDepartment(e.target.value)} >
-                                    <option value="" disabled selected>Select Department</option>
+                                    <option value="" disabled>Select Department</option>
                                     <option value="1">Cardiology</option>
                                     <option value="2">Neurology</option>
                                     <option value="3">Surgery</option>

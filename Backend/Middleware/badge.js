@@ -7,7 +7,7 @@ export const protect=async (req,res,next) => {
                 message:"No token provided"
             })
         }
-        const token=authHeader.spli(" ")[1];
+        const token=authHeader.split(" ")[1];
         const verify=jwt.verify(token,process.env.JWT_SECRET);
         req.user=verify;
         next()
