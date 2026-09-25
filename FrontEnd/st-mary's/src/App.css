@@ -191,6 +191,7 @@ select{
   width: 250px;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .logo-info{
   display: flex;
@@ -222,18 +223,51 @@ select{
 .card{
   background: #0abfbc;
   margin-bottom: 10px;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   color: #8b97b0;
+  background: transparent;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+
+}
+.card:hover{
+  background: #14396b;
 }
 .card .icon{
   color: white;
   font-size: 19px;
   font-weight: bold;
 }
+.logout{
+  background:#2E8B57;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 20px;
+  position: absolute;
+  bottom: 10px;
+  width: 100%;
+  transition: all 0.3s ease;
 
+}
+.logout:hover{
+  background: #008B8B;
+}
+.dashboard{
+  display: flex;
+  min-height: 100vh;
+  background:#f6f8fb;
+
+}
+.main-content{
+  flex: 1;
+  min-width: 0
+}
 
 
 
