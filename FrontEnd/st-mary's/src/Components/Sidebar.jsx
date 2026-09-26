@@ -1,4 +1,4 @@
-function Sidebar(){
+function Sidebar({activePage,setActivePage}){
     return(
         <aside className="sidebar">
             <div className="logo-info">
@@ -9,11 +9,11 @@ function Sidebar(){
                 </div>
             </div>
              <div className="cards">
-                    <div className="card">
+                    <div className="card" onClick={()=>setActivePage("dashboard")}>
                         <span className="icon">田</span>
                         <span className="name">Dashboard</span>
                     </div>
-                     <div className="card">
+                     <div className="card" onClick={()=>setActivePage("patients")}>
                         <span className="icon">👤</span>
                         <span className="name">Patient</span>
                     </div>
@@ -29,14 +29,7 @@ function Sidebar(){
                         <span className="icon">⧈</span>
                         <span className="name">Ward</span>
                     </div>
-                     <div className="card">
-                        <span className="icon">田</span>
-                        <span className="name">Dashboard</span>
-                    </div>
-                     <div className="card">
-                        <span className="icon">田</span>
-                        <span className="name">Dashboard</span>
-                    </div>
+                     
                     
             </div>
             <button className="logout">

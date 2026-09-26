@@ -226,6 +226,7 @@ select{
   padding: 10px;
   display: flex;
   align-items: center;
+  cursor: pointer;
   gap: 15px;
   color: #8b97b0;
   background: transparent;
@@ -389,10 +390,29 @@ tbody tr:hover{
 }
 .admitted-status{
   background:#10b981;
-  color: white
+  color: white;
+  font-weight: bold;
 }
-
-
+.critical-status{
+  background: #f43f5e;
+  color: #ffffff;
+  font-weight: bold;
+}
+.preop-status{
+    background: #8b5cf6;
+  color: #ffffff;
+  font-weight: bold;
+}
+.observation-status{
+    background: #f59e0b;
+  color: #ffffff;
+  font-weight: bold;
+}
+.discharged-status{
+   background: #8b97b0;
+  color: #ffffff;
+  font-weight: bold;
+}
 
 
 

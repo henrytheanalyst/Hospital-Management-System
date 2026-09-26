@@ -83,7 +83,7 @@ function DashboardTemplate(){
                                 <td>Heart Condition</td>
                                 <td>2016-09-01</td>
                                 <td>
-                                    <span className="status addmitted-status">
+                                    <span className="status admitted-status">
                                         Addmitted
                                     </span>
                                 </td>
@@ -125,13 +125,13 @@ function DashboardTemplate(){
                                 <td>Fracture</td>
                                 <td>2026-09-03</td>
                                 <td>
-                                    <span className="status stable-status">
-                                        Stable
+                                    <span className="status critical-status">
+                                        Critical
                                     </span>
                                 </td>
                             </tr>
                              <tr>
-                                <td>P-001</td>
+                                <td>P-005</td>
                                 <td>John Kamau</td>
                                 <td>45</td>
                                 <td>Cardiology</td>
@@ -139,8 +139,8 @@ function DashboardTemplate(){
                                 <td>Heart Condition</td>
                                 <td>08:30 AM</td>
                                 <td>
-                                    <span className="status admitted-status">
-                                        Stable
+                                    <span className="status discharged-status">
+                                        Discharged
                                     </span>
                                 </td>
                             </tr>
