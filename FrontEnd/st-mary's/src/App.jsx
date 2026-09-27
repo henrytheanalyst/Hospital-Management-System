@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Header from './Components/Header'*/
 import Sidebar from './Components/Sidebar';
 import DashboardTemplate from './Components/Dashboard-template';
+import Patients from './Components/Patients';
 
 import './App.css'
 
@@ -15,6 +16,7 @@ function App() {
       <Sidebar activePage={activePage} setActivePage={setActivePage}/>
       <section className="main-content">
         {activePage === "dashboard" && <DashboardTemplate/>}
+        {activePage === "patients" && <Patients/>}
         
       </section>
     </main>

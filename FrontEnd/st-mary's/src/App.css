@@ -413,6 +413,37 @@ tbody tr:hover{
   color: #ffffff;
   font-weight: bold;
 }
+.patients-page{
+  padding: 25px;
+}
+.patients-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.patients-header h1{
+  color: #1e293b;
+  margin-bottom: 5px;
+}
+.patients-header p{
+  color: #64748b;
+  font-size: 14px;
+}
+.add-patient{
+  background: #0abfbc;
+  color: white;
+  border: none;
+  padding: 11px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.add-patient:hover{
+  background: #089c9a;
+}
 
 
 
