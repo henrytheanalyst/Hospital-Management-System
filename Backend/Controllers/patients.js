@@ -2,12 +2,13 @@ import pool from "../db.js";
 
 export const addPatients=async (req,res) => {
     try {
-        if(!fullname || !age || !gender || !phone || !email || !blood_type || !ward || !physician || !medical_condition || !admitted_at ||!status){
+        const {fullname,age,gender,phone,email,blood_type,ward,physician,medical_condition,status}=req.body;
+        if(!fullname || !age || !gender || !phone || !email || !blood_type || !ward || !physician || !medical_condition ||!status){
             return res.status(400).json({
                 message:"Kindly fill all the required fields"
             })
         }
-        const result=await pool.query(`INSERT INTO patients(fullname,age,gender,phone,email,blood_type,ward,physician,medical_condition,admitted_at,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11) RETURNING *`,[fullname,age,gender,phone,email,blood_type,ward,physician,medical_condition,admitted_at,status]);
+        const result=await pool.query(`INSERT INTO patients(fullname,age,gender,phone,email,blood_type,ward,physician,medical_condition,status) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) RETURNING *`,[fullname,age,gender,phone,email,blood_type,ward,physician,medical_condition,status]);
         res.status(201).json({
             message:`Patient ${fullname} added successfully`,
             data:result.rows[0]

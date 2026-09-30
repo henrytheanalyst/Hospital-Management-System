@@ -11,36 +11,32 @@ function Patients(){
     const [ward,setWard]=useState("")
     const[physician,setPhysician]=useState("");
     const [condition,setCondition]=useState("");
-    /*const [patients,setPatients]=useState([])*/
+    const [status,setStatus]=useState("")
+    
 
-    function handleSubmission(e){
+    async function handleSubmission(e){
         e.preventDefault();
-        const newPatient={
-            id:Date.now(),
-            fullName,
-            age,
-            gender,
-            phone,
-            email,
-            bloodType,
-            ward,
-            physician,
-            condition
+        try {
+            const response=await axios.post(
+                "http://localhost:3000/api/hospital/createpatients",
+                {
+                fullname:fullName,
+                age:age,
+                gender:gender,
+                phone:phone,
+                email:email,
+                blood_type:bloodType,
+                ward:ward,
+                physician:physician,
+                medical_condition:condition,
+                },
+                //here i know we need to put the the [authenticator but am confused]
+            )
+        } catch (error) {
+            
         }
-        console.log(newPatient);
-        /*setPatients((prev)=>[...prev,newPatient]);*/
-        
-         setFullName("");
-        setAge("");
-        setGender("");
-        setPhone("");
-        setEmail("");
-        setBloodType("");
-        setWard("");
-        setPhysician("");
-        setCondition("");
 
-    setShowForm(false);
+        
         
     }
     return(
@@ -117,6 +113,22 @@ function Patients(){
                         <label>Condition</label>
                         <input type="text" placeholder="Enter patient's condition" value={condition} required onChange={(e)=>setCondition(e.target.value)}/>
                     </div>
+                    <div className="form-group">
+                        <label>Status</label>
+                        <select
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                            required
+                        >
+                            <option value="" disabled>Select Patient Status</option>
+                            <option value="Admitted">Admitted</option>
+                            <option value="Observation">Observation</option>
+                            <option value="Pre-op">Pre-op</option>
+                            <option value="Critical">Critical</option>
+                            <option value="Discharged">Discharged</option>
+                        </select>
+                    </div>
+
                     <div className="form-actions">
                         <button type="submit" className="save-patient">
                             Save Patient</button>
