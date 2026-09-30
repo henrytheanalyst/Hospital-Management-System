@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
+import axios from 'axios';
 
 function Patients(){
     const [showForm,setShowForm]=useState(false);
@@ -11,28 +12,88 @@ function Patients(){
     const [ward,setWard]=useState("")
     const[physician,setPhysician]=useState("");
     const [condition,setCondition]=useState("");
-    const [status,setStatus]=useState("")
+    const [status,setStatus]=useState("");
+    const [patients,setPatients]=useState([]);
+
+    useEffect(()=>{
+        async function fetchPatients() {
+            try {
+                const token=localStorage.getItem('token');
+                const response=await axios.get(
+                      "http://localhost:3000/api/hospital/patients",
+                      {
+                        headers:{
+                            Authorization:`Bearer ${token}`
+                        }
+                      }
+
+                );
+                console.log(response.data);
+                setPatients(response.data.data)
+                
+            } catch (error) {
+                console.error(error);
+                console.log(error.response?.data);
+                
+                
+            }
+        }
+        fetchPatients();
+    },[])
     
 
     async function handleSubmission(e){
         e.preventDefault();
+        const token=localStorage.getItem('token');
         try {
             const response=await axios.post(
                 "http://localhost:3000/api/hospital/createpatients",
                 {
-                fullname:fullName,
-                age:age,
-                gender:gender,
-                phone:phone,
-                email:email,
-                blood_type:bloodType,
-                ward:ward,
-                physician:physician,
-                medical_condition:condition,
+                    fullname:fullName,
+                    age:age,
+                    gender:gender,
+                    phone:phone,
+                    email:email,
+                    blood_type:bloodType,
+                    ward:ward,
+                    physician:physician,
+                    medical_condition:condition,
+                    status:status
                 },
-                //here i know we need to put the the [authenticator but am confused]
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                }
             )
+            console.log(response.data);
+            const updatedPatients=await axios.get(
+                  "http://localhost:3000/api/hospital/patients",
+                  {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                  }
+            );
+            setPatients(updatedPatients.data.data);
+
+            setAge("");
+            setBloodType("");
+            setCondition("");
+            setEmail("");
+            setFullName("")
+            setGender("");
+            setPhone("");
+            setPhysician("");
+            setStatus("");
+            setWard("");
+
+            setShowForm(false)
+            
         } catch (error) {
+            console.error(error);
+            console.log(error.response?.data);
+            
             
         }
 
@@ -150,76 +211,24 @@ function Patients(){
                             <th>Status</th>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>P-001</td>
-                                <td>John Kamau</td>
-                                <td>45</td>
-                                <td>Cardiology</td>
-                                <td>Dr. Mwangi</td>
-                                <td>Heart Condition</td>
-                                <td>2016-09-01</td>
-                                <td>
-                                    <span className="status admitted-status">
-                                        Addmitted
-                                    </span>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>P-002</td>
-                                <td>Alex Mwikali</td>
-                                <td>25</td>
-                                <td>Surgery</td>
-                                <td>Dr. Maina</td>
-                                <td>Minor Surgery</td>
-                                <td>2026-09-02</td>
-                                <td>
-                                    <span className="status observation-status">
-                                        Observation
-                                    </span>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>P-003</td>
-                                <td>Jedidah Kwakana</td>
-                                <td>34</td>
-                                <td>Emergency</td>
-                                <td>Dr. Onesmus</td>
-                                <td>Labor pains</td>
-                                <td>2026-09-03</td>
-                                <td>
-                                    <span className="status preop-status">
-                                        Pre-op
-                                    </span>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>P-004</td>
-                                <td>Beth Wambui</td>
-                                <td>33</td>
-                                <td>Cardiology</td>
-                                <td>Dr. Nakamura</td>
-                                <td>Fracture</td>
-                                <td>2026-09-03</td>
-                                <td>
-                                    <span className="status critical-status">
-                                        Critical
-                                    </span>
-                                </td>
-                            </tr>
-                             <tr>
-                                <td>P-005</td>
-                                <td>John Kamau</td>
-                                <td>45</td>
-                                <td>Cardiology</td>
-                                <td>Dr. Mwangi</td>
-                                <td>Heart Condition</td>
-                                <td>08:30 AM</td>
-                                <td>
-                                    <span className="status discharged-status">
-                                        Discharged
-                                    </span>
-                                </td>
-                            </tr>
+                            {patients.map((patient)=>(
+                                <tr key={patient.id}>
+                                    <td>P-{String(patient.id).padStart(3,"0")}</td>
+                                    <td>{patient.fullname}</td>
+                                    <td>{patient.age}</td>
+                                    <td>{patient.ward}</td>
+                                    <td>{patient.physician}</td>
+                                    <td>{patient.medical_condition}</td>
+                                    <td>
+                                        {new Date(patient.admitted_at).toLocaleDateString()}
+                                    </td>
+                                    <td>
+                                        <span className="status">
+                                            {patient.status}
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
             </div>

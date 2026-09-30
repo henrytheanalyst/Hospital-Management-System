@@ -21,4 +21,18 @@ export const addPatients=async (req,res) => {
         
     }
 }
-export default addPatients;
+
+export const getPatients=async (req,res) => {
+    try {
+        const result=await pool.query(`SELECT * FROM patients ORDER BY id DESC`);
+        res.status(200).json({
+            data:result.rows
+        })
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message:"Problem encountered while fetching patients"
+        })
+        
+    }
+}
