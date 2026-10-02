@@ -15,39 +15,14 @@ function Patients(){
     const [status,setStatus]=useState("");
     const [patients,setPatients]=useState([]);
 
-    useEffect(()=>{
-        async function fetchPatients() {
-            try {
-                const token=localStorage.getItem('token');
-                const response=await axios.get(
-                      "http://localhost:3000/api/hospital/patients",
-                      {
-                        headers:{
-                            Authorization:`Bearer ${token}`
-                        }
-                      }
 
-                );
-                console.log(response.data);
-                setPatients(response.data.data)
-                
-            } catch (error) {
-                console.error(error);
-                console.log(error.response?.data);
-                
-                
-            }
-        }
-        fetchPatients();
-    },[])
-    
 
     async function handleSubmission(e){
         e.preventDefault();
         const token=localStorage.getItem('token');
         try {
             const response=await axios.post(
-                "http://localhost:3000/api/hospital/createpatients",
+                "http://localhost:3000/api/hospital/createpatients",//ive created a patient
                 {
                     fullname:fullName,
                     age:age,
@@ -100,6 +75,60 @@ function Patients(){
         
         
     }
+    async function handleDelete(id) {
+        const token=localStorage.getItem("token");
+        try {
+            const response=await axios.delete(
+                "http://localhost:3000/api/hospital/patients/${id}",
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                }
+            );
+            console.log(response.data);
+            const updatedPatients=await axios.get(
+                "http://localhost:3000/api/hospital/patients",
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                }
+            )
+            setPatients(updatedPatients.data.data)
+            
+        } catch (error) {
+            console.error(error);
+            console.log(error.response?.data);
+            
+            
+        }
+    }
+     useEffect(()=>{
+        async function fetchPatients() {
+            try {
+                const token=localStorage.getItem('token');
+                const response=await axios.get(
+                      "http://localhost:3000/api/hospital/patients",
+                      {
+                        headers:{
+                            Authorization:`Bearer ${token}`
+                        }
+                      }
+
+                );
+                console.log(response.data);
+                setPatients(response.data.data)
+                
+            } catch (error) {
+                console.error(error);
+                console.log(error.response?.data);
+                
+                
+            }
+        }
+        fetchPatients();
+    },[])
     return(
         <section className="patients-page">
             <div className="patients-header">
@@ -209,6 +238,7 @@ function Patients(){
                             <th>Condition</th>
                             <th>Admitted</th>
                             <th>Status</th>
+                            <th>Actions</th>
                         </thead>
                         <tbody>
                             {patients.map((patient)=>(
@@ -226,6 +256,11 @@ function Patients(){
                                         <span className="status">
                                             {patient.status}
                                         </span>
+                                    </td>
+                                    <td>
+                                        <button className="delete-btn" onClick={()=>handleDelete(id)}>
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
